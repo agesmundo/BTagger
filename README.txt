@@ -1,10 +1,23 @@
-COMPILE:
+//To test the code follow these quick guide
+//(I reccomand to set up an Eclipse project)
+//This test is done a small portion of the Conll-2000 corpus
+//The task is Noun-Phrase-Chunking given as input Words and POS tags
 
-cd src/main/java/bTagger
+//1 COMPILE:
+cd $BTAGGER_ROOT/src/main/java/bTagger
 javac *
 cd ..
 java bTagger/BTagger
+//here should output usage 
 
+//2 TRAIN TEST:
+java bTagger/BTagger -t MY_TRAIN ../../resources/test/trainNP.txt ../../resources/test/featureScriptNP.txt
+//output in the current folder weights files for each different round called : MY_TRAIN.<id>.fea
+
+//3 PREDICT & EVALUATE
+java bTagger/BTagger -pe MY_TEST ../../resources/test/testNP.txt MY_TRAIN.2.fea ../../resources/test/featureScriptNP.txt
+//the content of the file src/main/resources/test/logEvaluation should match the shell output
+//for the full NP corpus visit the Conll2000 website: http://www.cnts.ua.ac.be/conll2000/chunking/
 
 =======================================================================
 
