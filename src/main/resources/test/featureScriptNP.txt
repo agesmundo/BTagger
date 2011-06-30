@@ -35,6 +35,3 @@ PARAMETER: MAXROUND = 3
 
 [W:-1,W:0]
 [W:0,W:1]
-
-////////////////////////////////////////////////////////////
-//TRAIN EVALUATE: -b 120126b fData/W_POS_NP/trainCollins.txt fData/W_POS_NP/devCollins.txt fData/W_POS_NP/featureScriptNP.txt
