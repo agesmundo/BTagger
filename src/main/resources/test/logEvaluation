@@ -1,0 +1,87 @@
+
+Starting time: Thu Jun 30 12:56:43 CEST 2011
+----------------
+PREDICT-EVALUATE
+----------------
+Opening Feature Script File: ../../resources/test/featureScriptNP.txt
+PARAMETERS:
+	KSOCKET = 3
+	KHYPO = 3
+	TAU = 0.03
+	RADIUS = 40.0
+	MARGIN_RATE = 48.0
+	MAXROUND = 3
+	SENTENCE_LIMIT_CHAR = false
+	BASEFEAT = true
+	EXTENDFEAT = true
+	ADDITIONALFEAT = true
+	DOCUMENTFEAT = false
+	DOCUMENTCOLUMN = []
+	BARRIERFEAT = false
+	GAZETTEERS = false
+	GAZETTEERS_CASESENSITIVE_MAINWORD = true
+	GAZETTEERS_CASESENSITIVE_CONTEXTWORDS = false
+	LEXICON = null
+FORMAT:
+	W,POS,NP!
+ADDITIONAL TAGS:
+	[POS]
+ADDITIONAL FEATURES:
+	W:0
+	NP:-1
+	NP:-1,NP:-2
+	NP:1
+	NP:1,NP:2
+	NP:-1,NP:1
+	W:-2
+	W:-1
+	W:1
+	W:2
+	NP:-2,NP:-1,W:0
+	NP:-1,W:0
+	NP:-2
+	NP:-2,W:0
+	NP:2,NP:1,W:0
+	NP:1,W:0
+	NP:2
+	NP:2,W:0
+	NP:1,NP:-1,W:0
+	W:-1,W:0
+	W:0,W:1
+		21 additional features loaded
+GOLDSTANDARD FILE:
+	../../resources/test/testNP.txt
+		4 sentences loaded in this file
+FEATURE TABLE:
+	MY_TRAIN.2.fea
+		4269 features loaded
+		3 labels loaded
+
+Tags number: 97
+Tags matches: 69
+Tag precision: 0.711340206185567
+
+First tag matches: 2
+First tag precision: 0.5
+
+Sentences number: 4
+Sentences matches: 0
+Sentence Precisioin: 0.0
+
+Class NP phrases number in the gold standard: 29
+Class NP phrases number in the prediction: 27
+Class NP phrases matches: 9
+Class NP phrase precision: 0.3333333333333333
+Class NP phrase recall: 0.3103448275862069
+Class NP phrase F-METRIC: 0.32142857142857145
+
+Phrases number in the gold standard: 29
+Phrases number in the prediction: 27
+Phrases matches: 9
+Phrase precision: 0.3333333333333333
+Phrase recall: 0.3103448275862069
+Phrase F-METRIC: 0.32142857142857145
+
+Starting time: Thu Jun 30 12:56:43 CEST 2011
+Ending time: Thu Jun 30 12:56:43 CEST 2011
+Elapsed time: 0 hours, 0 min, 0 s
