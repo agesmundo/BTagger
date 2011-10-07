@@ -20,7 +20,7 @@ public class ExperimentChunkingVotingDocFreatures
 			System.out.println(use);
 			return;
 		}
-		String openingMessage=  "CHUNIKIKING WITH VOTING ON REPRESENTATION AND DOCUMENT FEATURES";
+		String openingMessage=  "CHUNKING WITH VOTING ON REPRESENTATION AND DOCUMENT FEATURES";
 
 		// save start time
 		long startTime = System.currentTimeMillis();
