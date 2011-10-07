@@ -10,7 +10,7 @@ import bTagger.BTagger;
 
 import corpus.Sentences;
 
-public class ExperimentChunkingVotingDocFreatures
+public class ExperimentChunkingVotingDocFeatures
 {
 	public static void main(String args[]){
 		String use = "\nFull Experiment Train Evaluate: java VotingChunksRepresentations -fte <projID> <train_file> <test_file> <base_feature_script> <document_feature_script>"
