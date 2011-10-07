@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import bTagger.BTagger;
 import bTagger.FileUtils;
@@ -616,6 +617,10 @@ public class Sentences
 			}
 		}
 		sentences=newSentences;
+	}
+
+	public void shuffle(long seed){
+		java.util.Collections.shuffle(sentences, new Random(seed));
 	}
 
 }
