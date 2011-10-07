@@ -21,7 +21,7 @@ public class KeepClass
 	 * arg[3+] names of the classes to keep
 	 * 
 	 * keep the NP tags from the second column supposed this format FORMAT:W POS
-	 * PHARSING NE!
+	 * PARSING NE!
 	 */
 	public static void main(String arg[])
 	{
