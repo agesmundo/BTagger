@@ -17,10 +17,10 @@ public class CombineLabels4Solutions
 
 		// check input
 		if (columnID < 0) {
-			System.out.println("column ID shall be bigger than 1");
+			System.out.println("column ID must be bigger than 1");
 		} else if (filesToMerge.length != weights.length) {
 			System.out
-					.println("filesToMerge and weights shuold be the same number of elements");
+					.println("filesToMerge and weights must be the same number of elements");
 		} else {
 			// print paramenters
 			System.out
