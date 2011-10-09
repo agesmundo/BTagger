@@ -8,8 +8,7 @@
 mkdir BTagger
 cd BTagger
 git init
-git remote add BTagger git@github.com:agesmundo/BTagger
-git pull BTagger master
+git pull git://github.com/agesmundo/BTagger.git
 
 //1 COMPILE:
 cd src/main/java/bTagger
