@@ -1,6 +1,9 @@
 package utility;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,22 +15,38 @@ import corpus.Sentences;
 public class CrossValidationPrediction
 {
 	public static void main(String[] args){
-		if(args.length!=3){
-			System.out.println("java CrossValidation <train_file> <feature_script_file> <segmets>");
+		if(args.length!=3 && args.length!=4){
+			System.out.println("java CrossValidation <train_file> <feature_script_file> <segmets> [<BOOL is_split_documents>]");
 			return;
 		}
 
 		String trainFileName= args [0] ;
 		String featureScripFile= args[1];
 		int crossValidationSegments=Integer.parseInt(args[2]);
+		boolean splitDoc=false;
+		if(args.length==4){
+			splitDoc=Boolean.parseBoolean(args[3]);
+		}
 
-		new CrossValidationPrediction().execute(trainFileName,featureScripFile, crossValidationSegments).saveFile(trainFileName+"-CV-TAGGED");
-		System.out.println("OUT: FINAL CV PREDICTED MERGED SAVED IN : "+ trainFileName+"-CV-TAGGED");
+		String taggedFile= trainFileName+"-CV-TAGGED";
+		new CrossValidationPrediction().execute(trainFileName,featureScripFile, crossValidationSegments, splitDoc).saveFile(taggedFile);
+		System.out.println("OUT: FINAL CV PREDICTED MERGED SAVED IN : "+ taggedFile);
+		System.out.println("!!!!!!! FINAL EVALUATION !!!!!!!");
+		//<proj_ID> <gold file> <prediction> <feature script>
+		double result = new BTagger().evaluate("FINAL_EVAL:", trainFileName, taggedFile, featureScripFile);
+
+		try{
+			PrintWriter out = new PrintWriter(new FileWriter("RESULT.txt"));
+			out.println(result*100);
+			out.close();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
 	}
 
-	public Sentences execute(String trainFileName,String featureScriptFile, int crossValidationSegments){
+	public Sentences execute(String trainFileName,String featureScriptFile, int crossValidationSegments, boolean splitDoc){
 
-		List <List<String>> sectionsFilesNames=divideCorpusOnDocs(trainFileName, crossValidationSegments);
+		List <List<String>> sectionsFilesNames=divideCorpus(trainFileName, crossValidationSegments,splitDoc);
 		List<String> testSectionsFilesNames = sectionsFilesNames.get(0);
 		List<String> trainingSectionsFilesNames = sectionsFilesNames.get(1);
 
@@ -62,7 +81,7 @@ public class CrossValidationPrediction
 
 	}
 
-	public static List<List<String>> divideCorpusOnDocs(String corpusFile, int crossValidationSegments)
+	public static List<List<String>> divideCorpus(String corpusFile, int crossValidationSegments, boolean splitDoc)
 	{
 		Sentences fullCorpus = new Sentences();
 		try {
@@ -70,8 +89,17 @@ public class CrossValidationPrediction
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		}
-		List<List<Sentences>> subSetsWithComplements = fullCorpus
-		.splitWithComplementsOnDocs(crossValidationSegments);
+		List<List<Sentences>> subSetsWithComplements;
+		if (splitDoc){
+			subSetsWithComplements= fullCorpus.splitWithComplementsOnDocs(crossValidationSegments);
+		}
+		else{
+//			subSetsWithComplements= fullCorpus.splitWithComplements(crossValidationSegments);
+			//use this so merged final output has same order as full corpus input
+			//so we can call evaluate at end
+			//if wanna shuffle use SuffleCorpus in utils in pre processing
+			subSetsWithComplements= fullCorpus.splitWithComplementsKeepSequence(crossValidationSegments); 
+		}
 		List<Sentences> subSets = subSetsWithComplements.get(0);
 		List<Sentences> complementsSets = subSetsWithComplements.get(1);
 

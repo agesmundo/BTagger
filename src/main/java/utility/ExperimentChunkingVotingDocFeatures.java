@@ -76,7 +76,7 @@ public class ExperimentChunkingVotingDocFeatures
 			}
 
 			//cross validation on train to create DC column on train
-			Sentences docFeatTrainSet= new CrossValidationPrediction().execute(trainFile,baseFeatureScriptFile, 5);
+			Sentences docFeatTrainSet= new CrossValidationPrediction().execute(trainFile,baseFeatureScriptFile, 5, true);
 
 			docFeatTrainSet.addColumn(trainSet.getColumn(Utility.getColumnFromScript(baseFeatureScriptFile)));
 			docFeatTrainSet.saveFile(trainWithDC);

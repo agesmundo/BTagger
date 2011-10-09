@@ -519,6 +519,49 @@ public class Sentences
 	}
 
 	/**
+	 * Split Sentences set in subsets and get also the complement subset for
+	 * each subset.
+	 * This version keeps sentences same sequence as they were in the full corpus. 
+	 * 
+	 * @param subsetsNumber
+	 *            The number of subsets.
+	 * @return Subsection of the original sentences set and a complement set for
+	 *         each subsection.
+	 */
+	public List<List<Sentences>> splitWithComplementsKeepSequence(int subsetsNumber)
+	{
+		// initialize returned objects
+		List<Sentences> subSets = new ArrayList<Sentences>();
+		for (int i = 0; i < subsetsNumber; i++) {
+			subSets.add(new Sentences());
+		}
+		List<Sentences> compSets = new ArrayList<Sentences>();
+		for (int i = 0; i < subsetsNumber; i++) {
+			compSets.add(new Sentences());
+		}
+
+		// split sentences in subsets
+		int subsetSize = sentences.size() / subsetsNumber;
+		int i = 0;
+		int count=0;
+		for (Sentence sentence : sentences) {
+			subSets.get(i).addSentence(sentence);
+			for (int j = 0; j < compSets.size(); j++) {
+				if (j != i) {
+					compSets.get(j).addSentence(sentence);
+				}
+			}
+			count++;
+			i = java.lang.Math.min(subsetsNumber-1, count / subsetSize);
+		}
+
+		List<List<Sentences>> rtn = new ArrayList<List<Sentences>>();
+		rtn.add(subSets);
+		rtn.add(compSets);
+		return rtn;
+	}
+	
+	/**
 	 * Split Sentences set in subsets on docstarts and get also the complement
 	 * subset for each subset.
 	 * 
