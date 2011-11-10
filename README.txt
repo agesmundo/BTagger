@@ -1,8 +1,8 @@
-//To test the code follow these quick guide
+//To test the code follow this quick guide
 //(I recommend to set up an Eclipse project)
-//This test is done a small portion of the Conll-2000 corpus
+//This test is done on a small portion of the Conll-2000 corpus
 //The task is Noun-Phrase-Chunking given as input Words and POS tags
-//For more info write me at : andrea.gesmundo@gmail.com
+//For more info write to me at : andrea.gesmundo@gmail.com
 
 //0 PULL GIT REPO
 mkdir BTagger
