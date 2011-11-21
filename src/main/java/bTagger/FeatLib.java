@@ -140,11 +140,12 @@ public class FeatLib{
 	}
 
 	/**
+	 * Get the voted (cumulative: proportional to averaged)
+	 * score (sum of weights) of a set of features.
 	 * 
-	 * 
-	 * @param feats
-	 * @param allround
-	 * @return
+	 * @param feats 	list of feature strings
+	 * @param allround  current round index
+	 * @return			voted (cumulative) weight
 	 */
 	public double getVotedScore(List<String> feats, int allround){
 		double score = 0;
@@ -158,26 +159,13 @@ public class FeatLib{
 		return score;
 	}
 
-	public void updateFeat(Map<String, Integer> featval, double para, int allround){
-		Iterator<String> featenu = featval.keySet().iterator();
-		while (featenu.hasNext()){
-			String onefeat = featenu.next();
-			int val = featval.get(onefeat).intValue();
-			if (val != 0){
-
-				int feaid = getFeatID(onefeat);
-				if (feaid == -1){
-					feaid = regFeat(onefeat);
-				}  
-				Feat feat = id2feat.get(feaid);
-				feat.updateCmlwt(allround);
-				feat.weight += val*para;	
-
-			}
-		}
-	}
-
-
+	/**
+	 * Update weight vector
+	 *  
+	 * @param feats 	 	Features to be updated
+	 * @param para			Update step
+	 * @param allround		Current iteration id
+	 */
 	public void updateFeat(List<String> feats, double para, int allround){
 
 		// Debug
@@ -197,7 +185,36 @@ public class FeatLib{
 		}
 	}
 
+	/**
+	 * Update weight vector,
+	 * use different scale factor for each feature.
+	 *  
+	 * @param feats 	 	Features to be updated with scale factor
+	 * @param para			Update step
+	 * @param allround		Current iteration id
+	 */
+	public void updateFeat(Map<String, Integer> featval, double para, int allround){
+		Iterator<String> featenu = featval.keySet().iterator();
+		while (featenu.hasNext()){
+			String onefeat = featenu.next();
+			int val = featval.get(onefeat).intValue();
+			if (val != 0){
 
+				int feaid = getFeatID(onefeat);
+				if (feaid == -1){
+					feaid = regFeat(onefeat);
+				}  
+				Feat feat = id2feat.get(feaid);
+				feat.updateCmlwt(allround);
+				feat.weight += val*para;	
+
+			}
+		}
+	}
+	
+	/**
+	 * list features with weights one per line
+	 */
 	public void listWeight(){
 		System.err.println("list weights :");
 
@@ -211,7 +228,9 @@ public class FeatLib{
 		// 	}
 	}
 
-
+	/**
+	 * save to file  list of features with weights one per line
+	 */
 	public void saveWeight(String filename, int round){
 
 //			PrintWriter sout = new PrintWriter (new FileOutputStream(filename+".wt"));
@@ -231,13 +250,22 @@ public class FeatLib{
 	}
 
 
+	/**
+	 * update cumulative weight
+	 * 
+	 * @param round 	current round id.
+	 */
 	public void updateCmlwt(int round){
 		for (int i=0; i<id2feat.size(); i++){
 			id2feat.get(i).updateCmlwt(round);
 		}
 	}
 
-
+	/**
+	 * use cumulative weight (proportional to averaged) as scoring weight
+	 * 
+	 * @param round 	current round id
+	 */
 	public void useVotedFeat(int round){
 		for (int i=0; i<id2feat.size(); i++){
 			Feat fea = id2feat.get(i);
@@ -277,8 +305,11 @@ class Feat{
 		cmlwt = org.cmlwt;
 	}
 
+
 	/**
-     update cmlwt according to the current allround
+	 * update cumulative weight
+	 * 
+	 * @param allround 	current round id
 	 */
 	public double updateCmlwt(int allround){
 		cmlwt += (allround - update) * weight;
