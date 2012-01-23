@@ -8,8 +8,6 @@ import utility.GenerateChunkRepresentations;
 import utility.Graph;
 import utility.Utility;
 import bTagger.BTagger;
-import bTagger.Context;
-import bTagger.FileUtils;
 
 /**
  * 
