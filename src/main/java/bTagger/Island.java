@@ -943,7 +943,7 @@ public class Island
 					lex.append(fd.applyProperty(sen.addTags[fd.addFeatIndex][posiOffset]));
 				}
 				else{
-					detailString=fd.applyProperty(fd.applyProperty(sen.addTags[fd.addFeatIndex][posiOffset]));
+					detailString=fd.applyProperty(sen.addTags[fd.addFeatIndex][posiOffset]);
 					if(detailString==null){
 						completed=false;
 						break;
