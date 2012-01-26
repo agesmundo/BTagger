@@ -477,6 +477,39 @@ public class Sentences
 		}
 		return subSets;
 	}
+	
+	/**
+	 * Split Sentences set 2 subsets with given ratio
+	 * used to split corpus into train and test sets
+	 * 
+	 * @param ratio
+	 *            split ration in [0,1].
+	 * @return two split of the original set.
+	 */
+	public List<Sentences> splitWithRatio(double ratio) throws IllegalArgumentException
+	{
+		if(ratio<0 || ratio>1)throw new IllegalArgumentException("ratio must be in [0,1]");
+		
+		int firstSize = (int) (ratio * size());
+		
+		// initialize returned object
+		List<Sentences> rtn = new ArrayList<Sentences>(2);
+		for (int i = 0; i < 2; i++) {
+			rtn.add(new Sentences());
+		}
+
+		// split sentences in subsets
+		int i = 0;
+		for (Sentence sentence : sentences) {
+			if(i<firstSize){
+				rtn.get(0).addSentence(sentence);
+			}else{
+				rtn.get(1).addSentence(sentence);
+			}
+			i++;
+		}
+		return rtn;
+	}
 
 	/**
 	 * Split Sentences set in subsets and get also the complement subset for
