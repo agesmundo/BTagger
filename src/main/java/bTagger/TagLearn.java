@@ -746,9 +746,9 @@ public class TagLearn
 		} // end of a round
 
 		// print average F-metric
-		System.out.println("\nAverage F-mertic: " + averageFM / context.MAXROUND);
-		System.out.println("Max F-mertic: " + (Double)Collections.max(results));
-		System.out.println("Max F-mertic at round: " + (results.indexOf((Double)Collections.max(results))+1));
+		System.out.println("\nAverage F-metric: " + averageFM / context.MAXROUND);
+		System.out.println("Max F-metric: " + (Double)Collections.max(results));
+		System.out.println("Max F-metric at round: " + (results.indexOf((Double)Collections.max(results))+1));
 
 		// save weights at the end of the training
 		if (!context.PRINT_WEIGHTS_EACH_ROUND) {
